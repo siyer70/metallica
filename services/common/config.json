@@ -1,0 +1,36 @@
+{
+  "development" : {
+    "GATEWAY_PROTOCOL" : "http",
+    "GATEWAY_HOST" : "localhost",
+    "GATEWAY_PORT" : 3100,
+    "SERVICE_DISCOVERY_PROTOCOL" : "http",
+    "SERVICE_DISCOVERY_HOST" : "localhost",
+    "SERVICE_DISCOVERY_PORT" : 3100,
+    "RABBITMQ_HOST" : "127.0.0.1",
+    "TRADE_NOTIFICATION_QUEUE_NAME" : "tradequeue",
+    "MARKET_DATA_NOTIFICATION_QUEUE_NAME" : "marketdataqueue",
+    "NOTIFICATION_SERVICE_PORT" : 3050,
+    "REFERENCE_DATA_SERVICE_PORT" : 3020,
+    "POSTGRES_URI" : "postgresql://shekhar:shekhar@localhost:5432/metallica",
+    "TRADE_SERVICE_PORT" : 3010,
+    "MONGODB_TRADES_URI" : "mongodb://localhost/trades",
+    "REGISTER_INTERVAL_IN_SECONDS" : 15
+  },
+  "test" : {
+    "GATEWAY_PROTOCOL" : "http",
+    "GATEWAY_HOST" : "localhost",
+    "GATEWAY_PORT" : 3100,
+    "SERVICE_DISCOVERY_PROTOCOL" : "http",
+    "SERVICE_DISCOVERY_HOST" : "localhost",
+    "SERVICE_DISCOVERY_PORT" : 3100,
+    "RABBITMQ_HOST" : "127.0.0.1",
+    "TRADE_NOTIFICATION_QUEUE_NAME" : "tradequeue",
+    "MARKET_DATA_NOTIFICATION_QUEUE_NAME" : "marketdataqueue",
+    "NOTIFICATION_SERVICE_PORT" : 3050,
+    "REFERENCE_DATA_SERVICE_PORT" : 3020,
+    "POSTGRES_URI" : "postgresql://shekhar:shekhar@localhost:5432/metallica",
+    "TRADE_SERVICE_PORT" : 3010,
+    "MONGODB_TRADES_URI" : "mongodb://localhost/trades_test",
+    "REGISTER_INTERVAL_IN_SECONDS" : 15
+  }
+}

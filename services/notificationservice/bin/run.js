@@ -3,10 +3,11 @@ const path =  require('path');
 const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
+const config = require('./../../common/config');
 const NotificationService = require('./../notificationservice');
 
 const publicPath = path.join(__dirname, './../../../public');
-const port = process.env.PORT || 3040;
+const port = process.env.NOTIFICATION_SERVICE_PORT || 3040;
 var app = express();
 var server = http.createServer(app);
 var io = socketIO(server);

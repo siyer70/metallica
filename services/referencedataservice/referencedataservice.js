@@ -1,7 +1,8 @@
 const express = require('express'),
   bodyParser = require('body-parser');
+const config = require('./../common/config');
 const { Pool, Client } = require('pg')
-const connectionString = 'postgresql://shekhar:shekhar@localhost:5432/metallica'
+const connectionString = process.env.POSTGRES_URI;
 
 var service = express();
 service.use(bodyParser.json());

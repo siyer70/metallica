@@ -1,5 +1,6 @@
 const expect = require('expect');
 const request = require('supertest');
+require('./../../../services/common/configtest');
 
 const launcher = require('./../../../services/tradeservice/launcher');
 const {tradeService} = require('./../../../services/tradeservice/tradeservice');
