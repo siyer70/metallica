@@ -1,7 +1,12 @@
 'use strict'
-
+const path =  require('path');
 const express = require('express');
+
 const service = express();
+
+const publicPath = path.join(__dirname, './../../public');
+service.use(express.static(publicPath));
+
 const ServiceRegistry = require('./../registryservice/serviceRegistry');
 const serviceRegistry = new ServiceRegistry();
 
