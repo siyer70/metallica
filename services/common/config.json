@@ -12,9 +12,18 @@
     "NOTIFICATION_SERVICE_PORT" : 3050,
     "REFERENCE_DATA_SERVICE_PORT" : 3020,
     "POSTGRES_URI" : "postgresql://shekhar:shekhar@localhost:5432/metallica",
-    "TRADE_SERVICE_PORT" : 3010,
     "MONGODB_TRADES_URI" : "mongodb://localhost/trades",
-    "REGISTER_INTERVAL_IN_SECONDS" : 15
+    "REGISTER_INTERVAL_IN_SECONDS" : 15,
+    "TRADE_SERVICE_PROTOCOL" : "http",
+    "TRADE_SERVICE_HOSTNAME" : "localhost",
+    "TRADE_SERVICE_IPADDRESS" : "127.0.0.1",
+    "TRADE_SERVICE_APP_REGISTRY_NAME" : "tradeservice",
+    "TRADE_SERVICE_VIPADDRESS" : "tradeservice",
+    "TRADE_SERVICE_DATACENTER_NAME" : "MyOwn",
+    "TRADE_SERVICE_DATACENTER_CLASS" : "com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo",
+    "EUREKA_SERVER_HOSTNAME" : "localhost",
+    "EUREKA_SERVER_PORT" : 8761,
+    "EUREKA_SERVER_SERVICEPATH" : "/eureka/apps/"
   },
   "test" : {
     "GATEWAY_PROTOCOL" : "http",
@@ -29,8 +38,18 @@
     "NOTIFICATION_SERVICE_PORT" : 3050,
     "REFERENCE_DATA_SERVICE_PORT" : 3020,
     "POSTGRES_URI" : "postgresql://shekhar:shekhar@localhost:5432/metallica",
-    "TRADE_SERVICE_PORT" : 3010,
     "MONGODB_TRADES_URI" : "mongodb://localhost/trades_test",
-    "REGISTER_INTERVAL_IN_SECONDS" : 15
+    "REGISTER_INTERVAL_IN_SECONDS" : 15,
+    "TRADE_SERVICE_PROTOCOL" : "http",
+    "TRADE_SERVICE_HOSTNAME" : "localhost",
+    "TRADE_SERVICE_IPADDRESS" : "127.0.0.1",
+    "TRADE_SERVICE_PORT" : 3010,
+    "TRADE_SERVICE_APP_REGISTRY_NAME" : "tradeservice",
+    "TRADE_SERVICE_VIPADDRESS" : "tradeservice",
+    "TRADE_SERVICE_DATACENTER_NAME" : "MyOwn",
+    "TRADE_SERVICE_DATACENTER_CLASS" : "com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo",
+    "EUREKA_SERVER_HOSTNAME" : "localhost",
+    "EUREKA_SERVER_PORT" : 8761,
+    "EUREKA_SERVER_SERVICEPATH" : "/eureka/apps/"
   }
 }

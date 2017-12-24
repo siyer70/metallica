@@ -48,7 +48,7 @@ beforeEach((done) => {
   }
 });
 
-describe('POST /services/tradeService/trades', () => {
+describe('POST /trades', () => {
   it('should create a new trade', (done) => {
     var tradeData = {
     	"tradeDate":"2017-12-05T10:45:15.500Z",
@@ -61,7 +61,7 @@ describe('POST /services/tradeService/trades', () => {
       "status": "OPEN"
     }
 
-    request(tradeService).post('/services/tradeService/trades')
+    request(tradeService).post('/trades')
     .send(tradeData).expect(200).expect((res) => {
       expect(res.body.commodity).toBe("ZN");
     })
@@ -89,7 +89,7 @@ describe('POST /services/tradeService/trades', () => {
       "status": "NOMINATED"
     }
 
-    request(tradeService).post('/services/tradeService/trades')
+    request(tradeService).post('/trades')
     .send(tradeData).expect(400)
     .end((err, res) => {
       if(err) {
@@ -105,9 +105,9 @@ describe('POST /services/tradeService/trades', () => {
 
 });
 
-describe('GET /services/tradeService/trades', () => {
+describe('GET /trades', () => {
   it('should list all trades in db', (done) => {
-    request(tradeService).get('/services/tradeService/trades')
+    request(tradeService).get('/trades')
     .expect(200).expect((res) => {
       expect(res.body.trades.length).toBe(2);
     })

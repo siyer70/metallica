@@ -9,6 +9,13 @@ const express = require('express'),
 var service = express();
 service.use(bodyParser.json());
 
+var myRequestLogger = function(req, res, next) {
+  console.log("Request received: ", req.method, req.originalUrl);
+  next();
+}
+
+service.use(myRequestLogger);
+
 var em = new events.EventEmitter();
 var notifier = new Notifier();
 const EVENT_NAME = 'change';
@@ -17,7 +24,20 @@ em.on(EVENT_NAME, function(data) {
   notifier.notifyInTradeChannel(data.changeType, data.body);
 });
 
-service.post('/services/tradeService/trades', (req, res) => {
+service.get('/', (req, res) => {
+  res.send('This is a trade service!');
+});
+
+
+service.get('/info', (req, res) => {
+  res.send('This is a trade service!');
+});
+
+service.get('/health', (req, res) => {
+  res.send("Response from tradeservice: I'm alive!");
+});
+
+service.post('/trades', (req, res) => {
   let tradeBody = _.pick(req.body, ['tradeDate', 'commodity', 'side', 'price',
     'quantity', 'counterparty', 'location', 'status']);
 
@@ -36,7 +56,7 @@ service.post('/services/tradeService/trades', (req, res) => {
 
 });
 
-service.get('/services/tradeService/trades', (req, res) => {
+service.get('/trades', (req, res) => {
   Trade.find().then((trades) => {
     res.send({trades});
   }, (e) => {
@@ -44,7 +64,7 @@ service.get('/services/tradeService/trades', (req, res) => {
   });
 });
 
-service.get('/services/tradeService/trades/:dtrange/:com/:side/:cp/:location', (req, res) => {
+service.get('/trades/:dtrange/:com/:side/:cp/:location', (req, res) => {
   console.log("Query request received with params: ", req.params);
 
   let dtrange = req.params.dtrange;
@@ -80,7 +100,7 @@ service.get('/services/tradeService/trades/:dtrange/:com/:side/:cp/:location', (
 });
 
 
-service.get('/services/tradeService/trades/:id', (req, res) => {
+service.get('/trades/:id', (req, res) => {
   let id = req.params.id;
   console.log("Request received to retrieve trade with id:", id);
 
@@ -95,7 +115,7 @@ service.get('/services/tradeService/trades/:id', (req, res) => {
   });
 });
 
-service.patch('/services/tradeService/trades/:id', (req, res) => {
+service.put('/trades/:id', (req, res) => {
   let id = req.params.id;
 
   let tradeBody = _.pick(req.body, ['tradeDate', 'commodity', 'side', 'price',
@@ -127,7 +147,7 @@ service.patch('/services/tradeService/trades/:id', (req, res) => {
   })
 });
 
-service.delete('/services/tradeService/trades/:id', (req, res) => {
+service.delete('/trades/:id', (req, res) => {
   let id = req.params.id;
   console.log("Request received to remove trade with id:", id);
 

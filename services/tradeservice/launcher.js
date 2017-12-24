@@ -3,6 +3,7 @@ const request = require('superagent');
 const http = require('http');
 const config = require('./../common/config');
 const {tradeService} = require('./tradeservice');
+const Eureka = require('eureka-js-client').Eureka;
 
 function launch(registerPeriodically) {
   const server = http.createServer(tradeService);
@@ -16,6 +17,55 @@ function launch(registerPeriodically) {
 
   server.on('listening', function() {
     console.log(`Trade Service started on port ${server.address().port}`);
+    let tsProtocol = process.env.TRADE_SERVICE_PROTOCOL || 'http';
+    let tsHostName = process.env.TRADE_SERVICE_HOSTNAME || 'localhost';
+    let tsIpAddr = process.env.TRADE_SERVICE_IPADDRESS || '127.0.0.1';
+    let tsPort = `${server.address().port}`;
+    let tsApp = process.env.TRADE_SERVICE_APP_REGISTRY_NAME || 'tradeservice';
+    let tsVipAddress = process.env.TRADE_SERVICE_APP_REGISTRY_NAME || tsApp;
+    let tsHostPort = `${tsHostName}:${tsPort}`;
+    let tsBaseUrl = tsProtocol + "://" + tsHostPort;
+    let tsDCName = process.env.TRADE_SERVICE_DATACENTER_NAME || 'MyOwn';
+    let tsDCClass = process.env.TRADE_SERVICE_DATACENTER_CLASS ||
+                  'com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo';
+    let eurekaHost = process.env.EUREKA_SERVER_HOSTNAME || 'localhost';
+    let eurekaPort = process.env.EUREKA_SERVER_PORT || 8761;
+    let eurekaServicePath = process.env.EUREKA_SERVER_SERVICEPATH || '/eureka/apps/';
+
+    const client = new Eureka({
+      instance: {
+        instanceId: tsHostPort,
+        app: tsApp,
+        hostName: tsHostName,
+        ipAddr: tsIpAddr,
+        statusPageUrl:`${tsBaseUrl}/info`,
+        healthCheckUrl:`${tsBaseUrl}/health`,
+        port: {
+          '$' : tsPort,
+          '@enabled': true,
+        },
+        vipAddress: tsVipAddress,
+        dataCenterInfo: {
+          '@class': tsDCClass,
+          name: tsDCName,
+        },
+      },
+      eureka: {
+        // eureka server host / port
+        host: eurekaHost,
+        port: eurekaPort,
+        servicePath: eurekaServicePath
+      },
+    });
+
+    client.logger.level('debug');
+    client.start((error) => {
+      if(error) console.log('Error Occurred');
+      console.log(error || 'completed');
+    });
+
+    // const instances = client.getInstancesByAppId('tradeservice');
+    // console.log(instances);
 
     if(!registerPeriodically) return;
 
@@ -34,6 +84,7 @@ function launch(registerPeriodically) {
     const REGISTER_INTERVAL_IN_SECONDS = process.env.REGISTER_INTERVAL_IN_SECONDS || 15;
     setInterval(announce, REGISTER_INTERVAL_IN_SECONDS*1000);
   });
+
 }
 
 module.exports = {launch};
