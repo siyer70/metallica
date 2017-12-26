@@ -1,5 +1,5 @@
 'use strict'
 const launcher = require('./../launcher');
 
-var registerPeriodically = true;
+var registerPeriodically = false;
 launcher.launch(registerPeriodically);
