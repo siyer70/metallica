@@ -6,6 +6,8 @@ const service = express();
 
 const publicPath = path.join(__dirname, './public');
 service.use(express.static(publicPath));
+service.use('/favicon.ico', express.static(publicPath));
+
 
 const ServiceRegistry = require('./../registryservice/serviceRegistry');
 const serviceRegistry = new ServiceRegistry();
