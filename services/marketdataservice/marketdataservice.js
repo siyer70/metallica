@@ -16,7 +16,8 @@ class MarketDataService {
   start() {
     console.log('starting Market Data Service...');
     var t = this;
-    return setInterval(function() {t._simulatePriceChange();}, 2000);
+    t._simulatePriceChange();
+    return setInterval(function() {t._simulatePriceChange();}, 15000);
   }
 
   stop(timerRef) {
