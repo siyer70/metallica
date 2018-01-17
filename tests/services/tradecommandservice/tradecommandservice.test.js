@@ -104,3 +104,36 @@ describe('POST /trades', () => {
   });
 
 });
+
+describe('DELETE /trades/:id', () => {
+  it('should delete the trade if valid tradeid is passed', (done) => {
+    Trade.find({}).then((trades) => {
+      let tradeId = trades[0].tradeId;
+      console.log("Deleting trade with trade id: ", tradeId);
+      request(tradeCommandService).delete('/trades/'+`${tradeId}`)
+      .expect(200).expect((res) => {
+        expect(res.body.tradeId).toBe(tradeId);
+      })
+      .end((err, res) => {
+        if(err) {
+          return done(err);
+        }
+        done();
+      });
+
+    });
+
+  });
+
+  it('should NOT delete the trade if invalid tradeid is passed', (done) => {
+      request(tradeCommandService).delete('/trades/-1')
+      .expect(404)
+      .end((err, res) => {
+        if(err) {
+          return done(err);
+        }
+        done();
+      });
+  });
+
+});
